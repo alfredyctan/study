@@ -1,0 +1,2 @@
+INSERT INTO UserGroup (id, name) VALUES (1, 'admin');
+INSERT INTO UserGroup (id, name) VALUES (2, 'guest');

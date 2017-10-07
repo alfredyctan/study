@@ -8,22 +8,88 @@
 
 // Apply the java-library plugin to add support for Java Library
 apply plugin: 'java-library'
+apply plugin: 'java'
+apply plugin: 'maven'
 
 // In this section you declare where to find the dependencies of your project
 repositories {
     // Use jcenter for resolving your dependencies.
     // You can declare any Maven/Ivy/file repository here.
     jcenter()
+	mavenCentral()
+	maven {
+		url "http://repo.home.org/maven2"
+	}
+}
+
+uploadArchives {
+	repositories {
+		mavenDeployer {
+			repository(url: "file://localhost/tmp/myRepo/")
+		}
+	}
 }
 
 dependencies {
-    // This dependency is exported to consumers, that is to say found on their compile classpath.
-    api 'org.apache.commons:commons-math3:3.6.1'
-
-    // This dependency is used internally, and not exposed to consumers on their own compile classpath.
-    implementation 'com.google.guava:guava:21.0'
-
-    // Use JUnit test framework
-    testImplementation 'junit:junit:4.12'
+//    // This dependency is exported to consumers, that is to say found on their compile classpath.
+//    api 'org.apache.commons:commons-math3:3.6.1'
+//
+//    // This dependency is used internally, and not exposed to consumers on their own compile classpath.
+//    implementation 'com.google.guava:guava:21.0'
+//
+//    // Use JUnit test framework
+//    testImplementation 'junit:junit:4.12'
 }
 
+//task hello {
+//  println 'hello'
+//}
+//
+//task poc {
+//	println "project    :${project}"
+//	println "name       :${name}"
+//	println "path       :${path}"
+//	println "description:${description}"
+//	println "projectDir :${projectDir}"
+//	println "buildDir   :${buildDir}"
+//	println "group      :${group}"
+//	println "version    :${version}"
+//}
+//
+//task demoCopy(type: Copy) {
+//	description 'my test'
+//	from 'resources'
+//	into 'target'
+//	include("**/*")
+//	println('done demoCopy')
+//}
+//
+//task demoListTask {
+//	println tasks.findAll {
+//		task ->
+//			if (task.name.startsWith('demo') && !task.name.endsWith('ListTask')) {
+//				task.name
+//			}
+//	}
+//	println("done demoListTask")
+//}
+
+task task1 {
+	println 'task 1'
+}
+
+task task2 {
+	doLast {
+		println 'task 2 do last'
+	}
+}
+
+task task3 {
+	doFirst {
+		println 'task 3 do 1st'
+	}
+}
+
+task task4 {
+	println 'task 4'
+}

@@ -1,0 +1,2 @@
+INSERT INTO User (id, name, email, dob) VALUES (1, 'Alfred Tan', 'alfred.yctan@gmail.com', '1977-02-05');
+INSERT INTO User (id, name, email, dob) VALUES (2, 'Alfred Tan 2', 'alfred.yctan.2@gmail.com', '1977-02-05');

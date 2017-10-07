@@ -1,0 +1,27 @@
+allprojects {
+	apply plugin: 'java-library'
+	apply plugin: 'maven'
+
+	group='org.afc.study'
+	version='1.0.0-SNAPSHOT'
+
+	repositories {
+		maven { 
+			url "http://repo.marketcetera.org/maven" 
+		}
+		maven { 
+			url "http://central.maven.org/maven2/" 
+		}
+		mavenCentral()
+		mavenLocal()
+	}
+}
+
+subprojects {
+	dependencies {
+		implementation 'org.slf4j:slf4j-api:1.7.25'
+		testImplementation 'org.afc:afc-util:1.0.0-SNAPSHOT'
+		testImplementation 'junit:junit:4.12'
+		testImplementation 'org.jmock:jmock-junit4:2.5.1'
+	}
+}

@@ -174,33 +174,35 @@ class TranslationService {
 def service = [convert: { String key -> 'some text' }] as TranslationService
 assert 'some text' == service.convert('key.text')
 
-// closure coercion for single method interface/class
-def service = { String key -> 'some text' } as TranslationService
-
-
-//MockFor, very similiar to java dynamic proxy
-class FamilyPerson {
-	String first, last
-}
-
-class Family {
-	FamilyPerson father, mother
-	def nameOfMother() { "$mother.first $mother.last" }
-}
-
-def mock = new MockFor(FamilyPerson)
-mock.demand.getFirst{ 'dummy' } // intercept the class getter by closure syntax
-mock.demand.getLast{ 'name' }   // very similiar to JMock new Expectations
-mock.use {
-	def mary = new FamilyPerson(first:'Mary', last:'Smith')
-	def f = new Family(mother:mary)
-	assert f.nameOfMother() == 'dummy name' // get intercepted value from 
-}
-mock.expect.verify() // very similiar to JMock assertIsSatisfied
-
-
-
-
+//// closure coercion for single method interface/class
+//def service = { String key -> 'some text' } as TranslationService
+//
+//
+////MockFor, very similiar to java dynamic proxy
+//class FamilyPerson {
+//	String first, last
+//}
+//
+//class Family {
+//	FamilyPerson father, mother
+//	def nameOfMother() { "$mother.first $mother.last" }
+//}
+//
+//def mock = new MockFor(FamilyPerson)
+//mock.demand.getFirst{ 'dummy' } // intercept the class getter by closure syntax
+//mock.demand.getLast{ 'name' }   // very similiar to JMock new Expectations
+//mock.use {
+//	def mary = new FamilyPerson(first:'Mary', last:'Smith')
+//	def f = new Family(mother:mary)
+//	assert f.nameOfMother() == 'dummy name' // get intercepted value from 
+//}
+//mock.expect.verify() // very similiar to JMock assertIsSatisfied
+//
+//
+////times loop
+//5.times {
+//	println "Groovy Rules!"
+//}
 
 
 

@@ -1,0 +1,40 @@
+
+plugins { id "at.comm_unity.gradle.plugins.jpamodelgen" version "1.1.1" }
+
+apply plugin: 'java-library'
+apply plugin: 'at.comm_unity.gradle.plugins.jpamodelgen'
+
+sourceSets {
+	test {
+		java { srcDirs = ['src/test/java']}
+		resources { srcDirs = ['src/test/resources']}
+	}
+}
+
+dependencies {
+	implementation 'org.hsqldb:hsqldb:2.4.0'
+
+	implementation 'org.springframework:spring-context:5.0.0.RELEASE'
+	implementation 'org.springframework:spring-jdbc:5.0.0.RELEASE'
+	implementation 'org.springframework:spring-orm:5.0.0.RELEASE'
+
+
+	implementation 'org.hibernate:hibernate-core:5.2.11.Final'
+
+	testImplementation 'org.hamcrest:hamcrest-junit:2.0.0.0'
+}
+
+sourceSets {
+	generated {  
+		java.srcDir "${buildDir}/generated/src/java/"  
+	}
+}
+
+ext['hibernate.version'] = '5.2.11.Final'
+
+jpaModelgen {
+	library = "org.hibernate:hibernate-jpamodelgen:5.2.11.Final"
+	jpaModelgenSourcesDir = "src/generated/java"
+}
+
+compileJava.options.compilerArgs += ["-proc:none"]
