@@ -112,16 +112,14 @@ public class JPACriteriaAPIUserDAO implements UserDAO {
 		entityManager.getTransaction().commit();
 	}
 	
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	@Override
-	public <T> void modifyUsersAttributeByIdRange(int from, int to, SingularAttribute<?, T> attr, T value) {
+	public <T> void modifyUsersAttributeByIdRange(int from, int to, String name, T value) {
 		EntityManager entityManager = factory.createEntityManager();
 		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
 		CriteriaUpdate<JPAUser> criteria = builder.createCriteriaUpdate(JPAUser.class);
 		Root<JPAUser> table = criteria.from(JPAUser.class);
 		
 		//set value
-		criteria.set((SingularAttribute)attr, value);
+		criteria.set(getSingularAttributeByName(JPAUser_.class, name), value);
 		
 		//where clause
 		criteria.where(builder.between(table.get(JPAUser_.id), from, to));
@@ -133,4 +131,12 @@ public class JPACriteriaAPIUserDAO implements UserDAO {
 		entityManager.getTransaction().commit();
 	}
 	
+	private static SingularAttribute getSingularAttributeByName(Class clazz, String name) {
+		try {
+			return (SingularAttribute)clazz.getDeclaredField(name).get(null);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 }

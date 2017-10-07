@@ -16,10 +16,6 @@ import org.alf.dao.UserDAO;
 import org.alf.model.User;
 import org.alf.model.jpa.JPAUser;
 
-//@NamedQueries ({
-//	@NamedQuery(name="getUserById", query= ),
-//	@NamedQuery(name="getUsersByIdRange", query= "")
-//})
 public class JPAQueryUserDAO implements UserDAO {
 
 	private EntityManagerFactory factory;
@@ -115,9 +111,9 @@ public class JPAQueryUserDAO implements UserDAO {
 	}
 
 	@Override
-	public <T> void modifyUsersAttributeByIdRange(int from, int to, SingularAttribute<?, T> attr, T value) {
+	public <T> void modifyUsersAttributeByIdRange(int from, int to, String name, T value) {
 		EntityManager entityManager = factory.createEntityManager();
-		Query query = entityManager.createNativeQuery("UPDATE User SET " + attr.getName() + " = ? WHERE id BETWEEN ? AND ?");
+		Query query = entityManager.createNativeQuery("UPDATE User SET " + name + " = ? WHERE id BETWEEN ? AND ?");
 		
 		entityManager.getTransaction().begin();
 		query.setParameter(1, value);

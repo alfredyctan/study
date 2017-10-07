@@ -126,12 +126,12 @@ public class JPAQueryTest {
 
 		List<User> users = userDAO.getUsersByIdRange(0, 10);
 		System.out.println("before modify user:" + users);
-		userDAO.modifyUsersAttributeByIdRange(1, 2, JPAUser_.name, "Alftank");
+		userDAO.modifyUsersAttributeByIdRange(1, 2, User.Attr.NAME.value(), "Alftank");
 		
 		users = userDAO.getUsersByIdRange(0, 10);
 		System.out.println("after modify user name:" + users);
 		
-		userDAO.modifyUsersAttributeByIdRange(1, 2, JPAUser_.email, "char@yahoo.com.hk");
+		userDAO.modifyUsersAttributeByIdRange(1, 2, User.Attr.EMAIL.value(), "char@yahoo.com.hk");
 		users = userDAO.getUsersByIdRange(0, 10);
 		System.out.println("after modify user email:" + users);
 		

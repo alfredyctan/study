@@ -22,5 +22,5 @@ public interface UserDAO {
 	
 	public void modifyUser(User user);
 	
-	public <T> void modifyUsersAttributeByIdRange(int from, int to, SingularAttribute<?, T> attr, T value);
+	public <T> void modifyUsersAttributeByIdRange(int from, int to, String name, T value);
 }
