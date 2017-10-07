@@ -14,11 +14,11 @@ import org.alf.model.jpa.JPAUser_;
 import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-public class JPACriteriaAPITest {
+public class JPAQueryTest {
 
 	@Test
 	public void testGetById() throws SQLException {
-		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("/user-dao-jpa-criteria-api.xml");
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("/user-dao-jpa-query.xml");
 		
 		UserDAO userDAO = context.getBean("userDAO", UserDAO.class);
 		
@@ -30,7 +30,7 @@ public class JPACriteriaAPITest {
 
 	@Test
 	public void testByIdRange() throws SQLException {
-		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("/user-dao-jpa-criteria-api.xml");
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("/user-dao-jpa-query.xml");
 		
 		UserDAO userDAO = context.getBean("userDAO", UserDAO.class);
 		
@@ -42,7 +42,7 @@ public class JPACriteriaAPITest {
 
 	@Test
 	public void testAddUser() throws SQLException {
-		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("/user-dao-jpa-criteria-api.xml");
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("/user-dao-jpa-query.xml");
 		
 		UserDAO userDAO = context.getBean("userDAO", UserDAO.class);
 
@@ -55,7 +55,7 @@ public class JPACriteriaAPITest {
 
 	@Test
 	public void testAddUsers() throws SQLException {
-		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("/user-dao-jpa-criteria-api.xml");
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("/user-dao-jpa-query.xml");
 		
 		UserDAO userDAO = context.getBean("userDAO", UserDAO.class);
 
@@ -73,7 +73,7 @@ public class JPACriteriaAPITest {
 
 	@Test
 	public void testRemoveUser() throws SQLException, ParseException {
-		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("/user-dao-jpa-criteria-api.xml");
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("/user-dao-jpa-query.xml");
 		
 		UserDAO userDAO = context.getBean("userDAO", UserDAO.class);
 
@@ -87,7 +87,7 @@ public class JPACriteriaAPITest {
 
 	@Test
 	public void testRemoveByIdRange() throws SQLException {
-		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("/user-dao-jpa-criteria-api.xml");
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("/user-dao-jpa-query.xml");
 		
 		UserDAO userDAO = context.getBean("userDAO", UserDAO.class);
 
@@ -108,7 +108,7 @@ public class JPACriteriaAPITest {
 	
 	@Test
 	public void testModify() throws SQLException {
-		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("/user-dao-jpa-criteria-api.xml");
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("/user-dao-jpa-query.xml");
 		UserDAO userDAO = context.getBean("userDAO", UserDAO.class);
 
 		userDAO.modifyUser(new JPAUser(1, "Alfred Tan Updated", "alfred.yctan@gmail.com", new Date()));
@@ -121,7 +121,7 @@ public class JPACriteriaAPITest {
 
 	@Test
 	public void testModifyByIdRange() throws SQLException {
-		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("/user-dao-jpa-criteria-api.xml");
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("/user-dao-jpa-query.xml");
 		UserDAO userDAO = context.getBean("userDAO", UserDAO.class);
 
 		List<User> users = userDAO.getUsersByIdRange(0, 10);

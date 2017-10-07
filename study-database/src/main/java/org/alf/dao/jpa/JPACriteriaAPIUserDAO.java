@@ -114,7 +114,7 @@ public class JPACriteriaAPIUserDAO implements UserDAO {
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
-	public <T> void modifyUsersByIdRange(int from, int to, SingularAttribute<?, T> attr, T value) {
+	public <T> void modifyUsersAttributeByIdRange(int from, int to, SingularAttribute<?, T> attr, T value) {
 		EntityManager entityManager = factory.createEntityManager();
 		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
 		CriteriaUpdate<JPAUser> criteria = builder.createCriteriaUpdate(JPAUser.class);
