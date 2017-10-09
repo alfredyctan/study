@@ -1,5 +1,9 @@
 package org.alf.hsqldb;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.hamcrest.Matchers.is;
+
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -24,6 +28,7 @@ public class JPAUserQueryTest {
 		
 		User user = userDAO.getUserById(1);
 		System.out.println("user:" + user);
+		assertThat("found user", user, is(new JPAUser(1, "Alfred Tan", "alfred.yctan@gmail.com", "1977-02-05")));
 
 		context.close();
 	}
@@ -36,6 +41,10 @@ public class JPAUserQueryTest {
 		
 		List<User> users = userDAO.getUsersByIdRange(0, 3);
 		System.out.println("user:" + users);
+		assertThat("found 1 and 2", users, containsInAnyOrder(
+			new JPAUser(1, "Alfred Tan", "alfred.yctan@gmail.com", "1977-02-05"),
+			new JPAUser(2, "Alfred Tan 2", "alfred.yctan.2@gmail.com", "1977-02-05")
+		));
 
 		context.close();
 	}

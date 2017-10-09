@@ -1,8 +1,9 @@
 package org.alf.model.jpa;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -29,6 +30,18 @@ public class JPAUser implements User {
 	
 	public JPAUser() {
 	}
+	
+	public JPAUser(int id, String name, String email, String dob) {
+		this.id = id;
+		this.name = name;
+		this.email = email;
+		try {
+			this.dob = new SimpleDateFormat("yyyy-MM-dd").parse(dob);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	
 	public JPAUser(int id, String name, String email, Date dob) {
 		this.id = id;
@@ -91,4 +104,43 @@ public class JPAUser implements User {
 		return builder.toString();
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((dob == null) ? 0 : dob.hashCode());
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
+		result = prime * result + id;
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		JPAUser other = (JPAUser) obj;
+		if (dob == null) {
+			if (other.dob != null)
+				return false;
+		} else if (dob.getTime() != other.dob.getTime())
+			return false;
+		if (email == null) {
+			if (other.email != null)
+				return false;
+		} else if (!email.equals(other.email))
+			return false;
+		if (id != other.id)
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		return true;
+	}
 }
