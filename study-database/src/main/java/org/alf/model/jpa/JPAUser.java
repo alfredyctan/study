@@ -6,6 +6,8 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -16,19 +18,37 @@ import org.alf.model.User;
 public class JPAUser implements User {
 
 	@Id
-	@Column(name = "id")
-	private int id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = User.ID)
+	private Integer id;
 
-	@Column(name = "name")
+	@Column(name = User.NAME)
 	private String name;
 
-	@Column(name = "email")
+	@Column(name = User.EMAIL)
 	private String email;
 
-	@Column(name = "dob")
+	@Column(name = User.DOB)
 	private Date dob;
-	
+
 	public JPAUser() {
+	}
+
+
+	public JPAUser(String name, String email, String dob) {
+		this.name = name;
+		this.email = email;
+		try {
+			this.dob = new SimpleDateFormat("yyyy-MM-dd").parse(dob);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public JPAUser(String name, String email, Date dob) {
+		this.name = name;
+		this.email = email;
+		this.dob = dob;
 	}
 	
 	public JPAUser(int id, String name, String email, String dob) {
@@ -41,8 +61,7 @@ public class JPAUser implements User {
 			e.printStackTrace();
 		}
 	}
-	
-	
+
 	public JPAUser(int id, String name, String email, Date dob) {
 		this.id = id;
 		this.name = name;
@@ -51,12 +70,12 @@ public class JPAUser implements User {
 	}
 
 	@Override
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
 	@Override
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

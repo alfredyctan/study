@@ -12,9 +12,9 @@ public interface User {
 	
 	public static final String DOB = "dob";
 	
-	public int getId();
+	public Integer getId();
 
-	public void setId(int id);
+	public void setId(Integer id);
 
 	public String getName();
 
