@@ -14,7 +14,7 @@ import org.alf.model.jpa.JPAUser_;
 import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-public class JPACriteriaAPITest {
+public class JPAUserCriteriaAPITest {
 
 	@Test
 	public void testGetById() throws SQLException {
@@ -126,12 +126,12 @@ public class JPACriteriaAPITest {
 
 		List<User> users = userDAO.getUsersByIdRange(0, 10);
 		System.out.println("before modify user:" + users);
-		userDAO.modifyUsersAttributeByIdRange(1, 2, User.Attr.NAME.value(), "Alftank");
+		userDAO.modifyUsersAttributeByIdRange(1, 2, User.NAME, "Alftank");
 		
 		users = userDAO.getUsersByIdRange(0, 10);
 		System.out.println("after modify user name:" + users);
 		
-		userDAO.modifyUsersAttributeByIdRange(1, 2, User.Attr.EMAIL.value(), "char@yahoo.com.hk");
+		userDAO.modifyUsersAttributeByIdRange(1, 2, User.EMAIL, "char@yahoo.com.hk");
 		users = userDAO.getUsersByIdRange(0, 10);
 		System.out.println("after modify user email:" + users);
 		

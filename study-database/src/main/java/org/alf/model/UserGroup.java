@@ -1,6 +1,10 @@
 package org.alf.model;
 
-public interface Group {
+public interface UserGroup {
+	
+	public static final String ID = "id";
+	
+	public static final String NAME = "name";
 
 	public int getId();
 

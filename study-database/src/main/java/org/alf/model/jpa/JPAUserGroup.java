@@ -9,19 +9,19 @@ import org.alf.model.UserGroup;
 
 @Entity
 @Table(name = "UserGroup")
-public class JPAGroup implements UserGroup {
+public class JPAUserGroup implements UserGroup {
 
 	@Id
-	@Column(name = "id")
+	@Column(name = UserGroup.ID)
 	private int id;
 	
-	@Column(name = "name")
+	@Column(name = UserGroup.NAME)
 	private String name;
 
-	public JPAGroup() {
+	public JPAUserGroup() {
 	}
 	
-	public JPAGroup(int id, String name) {
+	public JPAUserGroup(int id, String name) {
 		this.id = id;
 		this.name = name;
 	}
@@ -45,4 +45,16 @@ public class JPAGroup implements UserGroup {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("JPAUserGroup [id=").append(id).append(", ");
+		if (name != null)
+			builder.append("name=").append(name);
+		builder.append("]");
+		return builder.toString();
+	}
+	
+	
 }

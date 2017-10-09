@@ -21,7 +21,7 @@ public class JPAQueryUserDAO implements UserDAO {
 	private EntityManagerFactory factory;
 
 	public JPAQueryUserDAO(Map<String, Object> jpaProps) {
-		this.factory = Persistence.createEntityManagerFactory("User", jpaProps);
+		this.factory = Persistence.createEntityManagerFactory("Hibernate", jpaProps);
 	}
 
 	@Override

@@ -4,20 +4,13 @@ import java.util.Date;
 
 public interface User {
 
-	public enum Attr {
-		
-		ID("id"), NAME("name"), EMAIL("email"), DOB("dob"); 
-
-		private String value;
-		
-		private Attr(String value) {
-			this.value = value;
-		}
-		
-		public String value() {
-			return value;
-		}
-	}
+	public static final String ID = "id";
+	
+	public static final String NAME = "name";
+	
+	public static final String EMAIL = "email";
+	
+	public static final String DOB = "dob";
 	
 	public int getId();
 

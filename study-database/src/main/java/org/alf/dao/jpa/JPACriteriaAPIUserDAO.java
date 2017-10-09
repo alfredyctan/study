@@ -37,7 +37,7 @@ public class JPACriteriaAPIUserDAO implements UserDAO {
 		 * and close an EntityManager even if you are not sure that data access will be needed to serve a particular request.
 		 * 
 		 */		
-		this.factory = Persistence.createEntityManagerFactory("User", jpaProps);
+		this.factory = Persistence.createEntityManagerFactory("Hibernate", jpaProps);
 	}
 
 	@Override
