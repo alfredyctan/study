@@ -18,7 +18,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.alf.model.User;
-import org.alf.model.UserAttribute;
 import org.alf.model.UserGroup;
 
 @Entity
@@ -47,8 +46,8 @@ public class JPAUser implements User {
 	@ManyToMany(cascade = CascadeType.ALL)
 	private Collection<JPAUserGroup> userGroups;
 
-//	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-//	private Collection<JPAUserAttribute> userAttributes;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+	private Collection<JPAUserAttribute> userAttributes;
 	
 	public JPAUser() {
 	}
@@ -150,9 +149,9 @@ public class JPAUser implements User {
 		if (dob != null)
 			builder.append(dob.getClass().getName() + ": dob=").append(dob).append(", ");
 		if (userGroups != null)
-			builder.append("userGroups=").append(userGroups.size());
-//		if (userAttributes != null)
-//			builder.append("userAttributes=").append(userAttributes);
+			builder.append("userGroups=").append(userGroups.size()).append(", ");
+		if (userAttributes != null)
+			builder.append("userAttributes=").append(userAttributes);
 		builder.append("]");
 		return builder.toString();
 	}
