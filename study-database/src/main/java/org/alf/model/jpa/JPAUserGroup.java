@@ -1,10 +1,16 @@
 package org.alf.model.jpa;
 
+import java.util.Collection;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import org.alf.model.User;
 import org.alf.model.UserGroup;
 
 @Entity
@@ -18,6 +24,9 @@ public class JPAUserGroup implements UserGroup {
 	@Column(name = UserGroup.NAME)
 	private String name;
 
+	@ManyToMany(mappedBy = "userGroups")
+	private Collection<JPAUser> users;	
+	
 	public JPAUserGroup() {
 	}
 	
@@ -47,11 +56,23 @@ public class JPAUserGroup implements UserGroup {
 	}
 
 	@Override
+	public Collection<User> getUsers() {
+		return (Collection)users;
+	}
+
+	@Override
+	public void setUsers(Collection<User> users) {
+		this.users = (Collection)users;
+	}
+
+	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("JPAUserGroup [id=").append(id).append(", ");
 		if (name != null)
-			builder.append("name=").append(name);
+			builder.append("name=").append(name).append(", ");
+		if (users != null)
+			builder.append("users=").append(users.size());
 		builder.append("]");
 		return builder.toString();
 	}

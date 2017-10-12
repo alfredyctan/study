@@ -1,0 +1,2 @@
+INSERT INTO UserAttribute (user_id, name, value) VALUES (1, 'font-size', '12');
+INSERT INTO UserAttribute (user_id, name, value) VALUES (1, 'bgcolor', '0xFFFFFF');

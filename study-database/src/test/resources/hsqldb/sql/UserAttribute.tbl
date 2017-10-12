@@ -1,0 +1,8 @@
+DROP TABLE UserAttribute IF EXISTS;
+
+CREATE TABLE UserAttribute (  
+	user_id     INTEGER,  
+	name   VARCHAR(30),  
+	value VARCHAR(50),
+	PRIMARY KEY (user_id, name)  
+);

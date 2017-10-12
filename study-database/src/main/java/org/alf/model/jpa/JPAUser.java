@@ -2,16 +2,24 @@ package org.alf.model.jpa;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Collection;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.alf.model.User;
+import org.alf.model.UserAttribute;
+import org.alf.model.UserGroup;
 
 @Entity
 @Table(name = "User")
@@ -31,9 +39,19 @@ public class JPAUser implements User {
 	@Column(name = User.DOB)
 	private Date dob;
 
+	@JoinTable(
+		name="UserGroupAssn",
+		joinColumns=@JoinColumn(name="USER_ID", referencedColumnName="ID"),
+		inverseJoinColumns=@JoinColumn(name="USERGROUP_ID", referencedColumnName="ID")
+	)
+	@ManyToMany(cascade = CascadeType.ALL)
+	private Collection<JPAUserGroup> userGroups;
+
+//	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+//	private Collection<JPAUserAttribute> userAttributes;
+	
 	public JPAUser() {
 	}
-
 
 	public JPAUser(String name, String email, String dob) {
 		this.name = name;
@@ -50,7 +68,7 @@ public class JPAUser implements User {
 		this.email = email;
 		this.dob = dob;
 	}
-	
+
 	public JPAUser(int id, String name, String email, String dob) {
 		this.id = id;
 		this.name = name;
@@ -110,15 +128,31 @@ public class JPAUser implements User {
 	}
 
 	@Override
+	public Collection<UserGroup> getUserGroups() {
+		return (Collection) userGroups;
+	}
+
+	@Override
+	public void setUserGroups(Collection<UserGroup> userGroups) {
+		this.userGroups = (Collection) userGroups;
+	}
+
+	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("User [ID=").append(id).append(", ");
+		builder.append("JPAUser [");
+		if (id != null)
+			builder.append("id=").append(id).append(", ");
 		if (name != null)
 			builder.append("name=").append(name).append(", ");
 		if (email != null)
 			builder.append("email=").append(email).append(", ");
 		if (dob != null)
-			builder.append("dob=").append(dob);
+			builder.append(dob.getClass().getName() + ": dob=").append(dob).append(", ");
+		if (userGroups != null)
+			builder.append("userGroups=").append(userGroups.size());
+//		if (userAttributes != null)
+//			builder.append("userAttributes=").append(userAttributes);
 		builder.append("]");
 		return builder.toString();
 	}
@@ -129,7 +163,7 @@ public class JPAUser implements User {
 		int result = 1;
 		result = prime * result + ((dob == null) ? 0 : dob.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result + id;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
 	}
@@ -153,7 +187,10 @@ public class JPAUser implements User {
 				return false;
 		} else if (!email.equals(other.email))
 			return false;
-		if (id != other.id)
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
 			return false;
 		if (name == null) {
 			if (other.name != null)

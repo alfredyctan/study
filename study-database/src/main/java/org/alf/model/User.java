@@ -1,5 +1,6 @@
 package org.alf.model;
 
+import java.util.Collection;
 import java.util.Date;
 
 public interface User {
@@ -28,4 +29,7 @@ public interface User {
 
 	public void setDob(Date dob);
 	
+	public Collection<UserGroup> getUserGroups();
+
+	public void setUserGroups(Collection<UserGroup> userGroups);
 }

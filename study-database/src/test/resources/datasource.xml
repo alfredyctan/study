@@ -22,8 +22,12 @@
 	
 	<jdbc:embedded-database id="dataSource" type="HSQL">
 		<jdbc:script location="/hsqldb/sql/User.tbl" />
-		<jdbc:script location="/hsqldb/sql/UserGroup.tbl" />
 		<jdbc:script location="/hsqldb/sql/User.populate" />
+		<jdbc:script location="/hsqldb/sql/UserGroup.tbl" />
 		<jdbc:script location="/hsqldb/sql/UserGroup.populate" />
+		<jdbc:script location="/hsqldb/sql/UserGroupAssn.tbl" />
+		<jdbc:script location="/hsqldb/sql/UserGroupAssn.populate" />
+<!-- 		<jdbc:script location="/hsqldb/sql/UserAttribute.tbl" /> -->
+<!-- 		<jdbc:script location="/hsqldb/sql/UserAttribute.populate" /> -->
 	</jdbc:embedded-database>
 </beans>
