@@ -1,0 +1,18 @@
+thru spring mvc
+
+jetty server
+-tomcat server
+-spring context
+http filter
+service
+-post
+-get
+-query param
+-path param
+-return
+-redirection
+-json conversion
+websocket
+
+-client request
+client websocket
