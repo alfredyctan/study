@@ -8,4 +8,10 @@
 		<version>1.0.0-SNAPSHOT</version>
 		<relativePath>..</relativePath>
 	</parent>
+	<scm>
+  		<tag>HEAD</tag>
+		<url>https://github.com/alfredyctan/study</url>
+		<connection>scm:git:https://github.com/alfredyctan/study.git</connection>
+		<developerConnection>scm:git:https://github.com/alfredyctan/study.git</developerConnection>
+	</scm>
 </project>

@@ -20,6 +20,12 @@
 		<jodatime-version>2.9.3</jodatime-version>
 		<junit-version>4.12</junit-version>
 	</properties>
+	<scm>
+  		<tag>HEAD</tag>
+		<url>https://github.com/alfredyctan/study</url>
+		<connection>scm:git:https://github.com/alfredyctan/study.git</connection>
+		<developerConnection>scm:git:https://github.com/alfredyctan/study.git</developerConnection>
+	</scm>
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
