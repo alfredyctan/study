@@ -20,7 +20,7 @@
 		<deployFileUrl>${project.distributionManagement.snapshotRepository.url}</deployFileUrl>
 	</properties>
 	<scm>
-  		<tag>HEAD</tag>
+  		<tag>study-parent-1.0.0</tag>
 		<url>https://github.com/alfredyctan/study</url>
 		<connection>scm:git:https://github.com/alfredyctan/study.git</connection>
 		<developerConnection>scm:git:https://github.com/alfredyctan/study.git</developerConnection>
@@ -155,7 +155,6 @@
 				<executions>
 					<execution>
 						<goals>
-							<goal>jar</goal>
 							<goal>test-jar</goal>
 						</goals>
 					</execution>
