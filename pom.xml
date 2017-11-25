@@ -19,6 +19,12 @@
 	<properties>
 		<deployFileUrl>${project.distributionManagement.snapshotRepository.url}</deployFileUrl>
 	</properties>
+	<scm>
+  		<tag>HEAD</tag>
+		<url>https://github.com/alfredyctan/study</url>
+		<connection>scm:git:https://github.com/alfredyctan/study.git</connection>
+		<developerConnection>scm:git:https://github.com/alfredyctan/study.git</developerConnection>
+	</scm>
 	<distributionManagement>
 		<repository>
 			<id>alf-release</id>
@@ -104,6 +110,7 @@
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>build-helper-maven-plugin</artifactId>
+				<version>1.10</version>
 				<executions>
 					<execution>
 						<id>add-sources</id>
@@ -144,6 +151,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
+				<version>3.0.2</version>
 				<executions>
 					<execution>
 						<goals>
@@ -156,6 +164,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>3.0.0-M1</version>
 				<executions>
 					<execution>
 						<id>attach-javadocs</id>
@@ -168,6 +177,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
+				<version>3.0.1</version>
 				<executions>
 					<execution>
 						<id>attach-sources</id>
@@ -211,6 +221,8 @@
 					<autoVersionSubmodules>true</autoVersionSubmodules>
 					<pushChanges>false</pushChanges>
 					<releaseProfiles>release-mode</releaseProfiles>
+					<username>${release.username}</username>
+					<password>${release.password}</password>
 				</configuration>
 			</plugin>
 		</plugins>

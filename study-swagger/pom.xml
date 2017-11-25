@@ -94,7 +94,9 @@
 					</executions>
 				</plugin>
 				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-resources-plugin</artifactId>
+					<version>3.0.2</version>
 					<executions>
 						<execution>
 							<id>filter-specification</id>
@@ -143,6 +145,7 @@
 				<plugin>
 					<groupId>org.springframework.boot</groupId>
 					<artifactId>spring-boot-maven-plugin</artifactId>
+					<version>1.5.7.RELEASE</version>
 					<executions>
 						<execution>
 							<goals>
