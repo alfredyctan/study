@@ -1,0 +1,347 @@
+swagger: '2.0'
+info:
+  title: Azure AD B2C User Service API
+  description: Azure Active Directory B2C User Service API
+  version: 1.2.0
+host: graph.windows.net
+tags:
+  - name: azure-ad-graph
+    description: Azure AD B2C Graph API
+schemes:
+- https
+produces:
+- application/json
+paths:
+  /{tenant_name}/users/{user_id}?api-version=1.6:
+    get:
+      tags:
+      - azure-ad-graph
+      operationId: getUser
+      summary: Get a user information
+      description: Gets a specified user. You can use either the object ID (GUID) or the user principal name (UPN) to identify the target user (https://msdn.microsoft.com/en-us/library/azure/ad/graph/api/users-operations#GetAUser)
+      parameters:
+      - name: tenant_name
+        in: path
+        description: The name of your B2C tenant, in the format <name>.onmicrosoft.com
+        required: true
+        type: string
+      - name: authorization
+        in: header
+        description: The value must be 'Bearer access_token'
+        type: string
+        required: true
+      - name: user_id
+        in: path
+        description: The user ID. Can be the object ID (GUID) or the user principal name
+        required: true
+        type: string
+      responses:
+        default:
+          description: Default response
+          schema:
+            $ref: '#/definitions/B2CUser'
+    patch:
+      tags:
+      - azure-ad-graph
+      operationId: resetUserPassword
+      description: Reset the password of a B2C user (https://msdn.microsoft.com/en-us/library/azure/ad/graph/api/users-operations#ResetUserPassword)
+      parameters:
+      - name: tenant_name
+        in: path
+        description: The name of your B2C tenant, in the format <name>.onmicrosoft.com
+        required: true
+        type: string
+      - name: authorization
+        in: header
+        description: The value must be 'Bearer access_token'
+        type: string
+        required: true
+      - name: user_id
+        in: path
+        description: The user ID. Can be the object ID (GUID) or the user principal name
+        required: true
+        type: string
+      - name: passwordResetRequest
+        in: body
+        description: The request body contains the properties of the user to update.
+        required: true
+        type: object
+        schema:
+          $ref: '#/definitions/UserPasswordResetRequest'
+      responses:
+        204:
+          description: No Content. Indicates success. No response body is returned.
+    delete:
+      tags:
+      - azure-ad-graph
+      operationId: deleteUser
+      description: Deletes a user. Deleted users might not be recoverable. (https://msdn.microsoft.com/en-us/library/azure/ad/graph/api/users-operations#DeleteUser)
+      parameters:
+      - name: tenant_name
+        in: path
+        description: The name of your B2C tenant, in the format <name>.onmicrosoft.com
+        required: true
+        type: string
+      - name: authorization
+        in: header
+        description: The value must be 'Bearer access_token'
+        type: string
+        required: true
+      - name: user_id
+        in: path
+        description: The user ID. Can be the object ID (GUID) or the user principal name
+        required: true
+        type: string
+      responses:
+        204:
+          description: No Content. Indicates success. No response body is returned.
+  /{tenant_name}/users?api-version=1.6:
+    post:
+      tags:
+      - azure-ad-graph
+      operationId: createLocalAccountUser
+      description: Create a local account user with minimum required information. (https://msdn.microsoft.com/en-us/library/azure/ad/graph/api/users-operations#CreateLocalAccountUser)
+      parameters:
+      - name: tenant_name
+        in: path
+        description: The name of your B2C tenant, in the format <name>.onmicrosoft.com
+        required: true
+        type: string
+      - name: authorization
+        in: header
+        description: The value must be 'Bearer access_token'
+        type: string
+        required: true
+      - name: UserCreationRequest
+        in: body
+        description: The request body contains the properties of the user to create. At a minimum, you must specify the required properties for the account use.
+        required: true
+        schema:
+          $ref: '#/definitions/UserCreationRequest'
+      responses:
+        default:
+          description: Default response
+          schema:
+            $ref: '#/definitions/B2CUser'
+    get:
+      tags:
+      - azure-ad-graph
+      operationId: getUsers
+      summary: Get users information by filter
+      description: Gets a list of user which fulfill given filter. (https://msdn.microsoft.com/en-us/library/azure/ad/graph/api/users-operations#GetUsers)
+      parameters:
+      - name: tenant_name
+        in: path
+        description: The name of your B2C tenant, in the format <name>.onmicrosoft.com
+        required: true
+        type: string
+      - name: authorization
+        in: header
+        description: The value must be 'Bearer access_token'
+        type: string
+        required: true
+      - name: $filter
+        in: query
+        description: The specific filter to obtain the list of user. eg. objectId, creationType, displayName, givenName, surname, userType, userName, emailAddress ...etc
+        required: true
+        type: string
+      responses:
+        default:
+          description: Default response
+          schema:
+            $ref: '#/definitions/B2CUsers'
+definitions:
+  B2CUsers:
+    type: object
+    properties:
+      odata.metadata:
+        type: string
+      value:
+        type: array
+        items:
+          $ref: '#/definitions/User'
+  B2CUser:
+    allOf:
+    - $ref: '#/definitions/User'
+    - type: object
+      properties:
+        odata.metadata:
+          type: string
+  User:
+    type: object
+    properties:
+      odata.type:
+        type: string
+      objectType:
+        type: string
+      objectId:
+        type: string
+      deletionTimestamp:
+        type: string
+      accountEnabled:
+        type: boolean
+      signInNames:
+        type: array
+        items:
+          $ref: '#/definitions/SignInNameItem'
+      assignedLicenses:
+        type: array
+        items:
+          $ref: '#/definitions/AssignedLicenseItem'
+      assignedPlans:
+        type: array
+        items:
+          $ref: '#/definitions/AssignedPlanItem'
+      city:
+        type: string
+      companyName:
+        type: string
+      country:
+        type: string
+      creationType:
+        type: string
+      department:
+        type: string
+      dirSyncEnabled:
+        type: string
+      displayName:
+        type: string
+      employeeId:
+        type: string
+      facsimileTelephoneNumber:
+        type: string
+      givenName:
+        type: string
+      immutableId:
+        type: string
+      isCompromised:
+        type: boolean
+      jobTitle:
+        type: string
+      lastDirSyncTime:
+        type: string
+      mail:
+        type: string
+      mailNickname:
+        type: string
+      mobile:
+        type: string
+      onPremisesDistinguishedName:
+        type: string
+      onPremisesSecurityIdentifier:
+        type: string
+      otherMails:
+        type: array
+        items:
+          type: string
+      passwordPolicies:
+        type: string
+      passwordProfile:
+        $ref: '#/definitions/PasswordProfile'
+      physicalDeliveryOfficeName:
+        type: string
+      postalCode:
+        type: string
+      preferredLanguage:
+        type: string
+      provisionedPlans:
+        type: array
+        items:
+          $ref: '#/definitions/ProvisionedPlanItem'
+      provisioningErrors:
+        type: array
+        items:
+          type: object
+      proxyAddresses:
+        type: array
+        items:
+          type: object
+      refreshTokensValidFromDateTime:
+        type: string
+      showInAddressList:
+        type: string
+      sipProxyAddress:
+        type: string
+      state:
+        type: string
+      streetAddress:
+        type: string
+      surname:
+        type: string
+      telephoneNumber:
+        type: string
+      usageLocation:
+        type: string
+      userPrincipalName:
+        type: string
+      userType:
+        type: string
+  SignInNameItem:
+    type: object
+    properties:
+      type:
+        type: string
+      value:
+        type: string
+  AssignedLicenseItem:
+    type: object
+    properties:
+      disabledPlans:
+        type: array
+        items:
+          type: object
+      skuId:
+        type: string
+  AssignedPlanItem:
+    type: object
+    properties:
+      assignedTimestamp:
+        type: string
+      capabilityStatus:
+        type: string
+      service:
+        type: string
+      servicePlanId:
+        type: string
+  PasswordProfile:
+    type: object
+    properties:
+      password:
+        type: string
+      forceChangePasswordNextLogin:
+        type: boolean
+      enforceChangePasswordPolicy:
+        type: boolean
+  ProvisionedPlanItem:
+    type: object
+    properties:
+      capabilityStatus:
+        type: string
+      provisioningStatus:
+        type: string
+      service:
+        type: string
+  UserCreationRequest:
+    type: object
+    properties:
+      accountEnabled:
+        type: boolean
+      creationType:
+        type: string
+      displayName:
+        type: string
+      givenName:
+        type: string
+      surname:
+        type: string
+      signInNames:
+        type: array
+        items:
+          $ref: '#/definitions/SignInNameItem'
+      passwordProfile:
+        $ref: '#/definitions/PasswordProfile'
+  UserPasswordResetRequest:
+    type: object
+    properties:
+      passwordProfile:
+        $ref: '#/definitions/PasswordProfile'

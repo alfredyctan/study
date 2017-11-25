@@ -1,0 +1,8 @@
+{
+	"basePackage": "org.alf.aadb2c",
+	"apiPackage": "org.alf.aadb2c.api",
+	"configPackage": "org.alf.aadb2c.config",
+	"modelPackage": "org.alf.aadb2c.model",
+	"delegatePattern": "true",
+	"hideGenerationTimestamp": "true"
+}

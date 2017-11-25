@@ -5,14 +5,21 @@
 	<artifactId>study-parent</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
+<!-- 	<parent> -->
+<!-- 		<groupId>org.springframework.boot</groupId> -->
+<!-- 		<artifactId>spring-boot-starter-parent</artifactId> -->
+<!-- 		<version>1.5.7.RELEASE</version> -->
+<!-- 	</parent> -->
 	<modules>
 		<module>study-database</module>
 		<module>study-hamcrest</module>
 		<module>study-spring-boot</module>
 		<module>study-jetty</module>
-		<module>simple-service</module>
 		<module>study-swagger</module>
 	</modules>
+	<properties>
+		<deployFileUrl>${project.distributionManagement.snapshotRepository.url}</deployFileUrl>
+	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
@@ -34,7 +41,85 @@
 		</dependency>
 	</dependencies>
 	<build>
+		<sourceDirectory>src/main/java</sourceDirectory>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+			<resource>
+				<directory>src/main/resources-excluded</directory>
+				<targetPath>${project.build.directory}/resources-excluded</targetPath>
+				<includes>
+					<include>**/*</include>
+				</includes>
+				<filtering>true</filtering>
+			</resource>
+			<resource>
+				<directory>src/main/webapp</directory>
+			</resource>
+			<resource>
+				<directory>src/main/config</directory>
+				<targetPath>${project.build.directory}/config</targetPath>
+				<filtering>true</filtering>
+			</resource>
+			<resource>
+				<directory>src/main/scripts</directory>
+				<targetPath>${project.build.directory}/scripts</targetPath>
+				<filtering>true</filtering>
+			</resource>
+			<resource>
+				<directory>src/main/filters</directory>
+				<excludes>
+					<exclude>**</exclude>
+				</excludes>
+			</resource>
+			<resource>
+				<directory>src/assembly</directory>
+				<excludes>
+					<exclude>**</exclude>
+				</excludes>
+			</resource>
+		</resources>
+		<testResources>
+			<testResource>
+				<directory>src/test/resources</directory>
+			</testResource>
+			<testResource>
+				<directory>src/test/filters</directory>
+			</testResource>
+		</testResources>
 		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>add-sources</id>
+						<phase>process-sources</phase>
+						<goals>
+							<goal>add-source</goal>
+						</goals>
+						<configuration>
+							<sources>
+								<source>target/generated-sources</source>
+							</sources>
+						</configuration>
+					</execution>
+					<execution>
+						<id>add-test-sources</id>
+						<phase>process-test-sources</phase>
+						<goals>
+							<goal>add-test-source</goal>
+						</goals>
+						<configuration>
+							<sources>
+								<source>target/generated-test-sources</source>
+							</sources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -44,10 +129,80 @@
 					<target>1.8</target>
 				</configuration>
 			</plugin>
+			<!-- attach test jar -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>jar</goal>
+							<goal>test-jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar-no-fork</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-deploy-plugin</artifactId>
+				<version>2.8.2</version>
+				<configuration>
+					<skip>true</skip>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>deploy</phase>
+						<configuration>
+							<packaging>jar</packaging>
+							<generatePom>true</generatePom>
+							<url>${deployFileUrl}</url>
+							<artifactId>${project.artifactId}</artifactId>
+							<groupId>${project.groupId}</groupId>
+							<version>${project.version}</version>
+							<file>${project.build.directory}/${project.build.finalName}.jar</file>
+						</configuration>
+						<goals>
+							<goal>deploy-file</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>2.5.3</version>
+				<configuration>
+					<releaseProfiles>release-mode</releaseProfiles>
+				</configuration>
+			</plugin>
 		</plugins>
 		<pluginManagement>
 			<plugins>
-				<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+				<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself. -->
 				<plugin>
 					<groupId>org.eclipse.m2e</groupId>
 					<artifactId>lifecycle-mapping</artifactId>
@@ -65,7 +220,7 @@
 										</goals>
 									</pluginExecutionFilter>
 									<action>
-										<ignore/>
+										<ignore />
 									</action>
 								</pluginExecution>
 							</pluginExecutions>
@@ -75,4 +230,12 @@
 			</plugins>
 		</pluginManagement>
 	</build>
+	<profiles>
+		<profile>
+			<id>release-mode</id>
+			<properties>
+				<deployFileUrl>${project.distributionManagement.repository.url}</deployFileUrl>
+			</properties>
+		</profile>
+	</profiles>
 </project>
