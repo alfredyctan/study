@@ -46,7 +46,7 @@ public final class GitCommandLineUtils
 
     public static void addTarget( Commandline cl, List<File> files )
     {
-    	System.out.println("ATYC : add");
+    	System.err.println("ATYC : addTarget");
         if ( files == null || files.isEmpty() )
         {
             return;
