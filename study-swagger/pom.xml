@@ -115,7 +115,7 @@
 					<dependency>
 						<groupId>org.apache.maven.scm</groupId>
 						<artifactId>maven-scm-provider-gitexe-flat</artifactId>
-						<version>1.9.4-SNAPSHOT</version>
+						<version>1.9.4</version>
 					</dependency>
 					<dependency>
 						<groupId>org.apache.maven.release</groupId>
