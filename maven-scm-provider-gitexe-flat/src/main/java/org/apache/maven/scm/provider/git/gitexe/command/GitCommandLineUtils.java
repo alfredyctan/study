@@ -55,6 +55,7 @@ public final class GitCommandLineUtils
         final File workingDirectory = cl.getWorkingDirectory();
         try
         {
+        	final String canonicalWorkingDirectory = workingDirectory.getCanonicalPath(); 
             for ( File file : files )
             {
                 String relativeFile = FileUtil.getRelativePath(workingDirectory, file); 
