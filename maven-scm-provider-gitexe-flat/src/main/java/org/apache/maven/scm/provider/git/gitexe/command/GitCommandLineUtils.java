@@ -1,5 +1,9 @@
 package org.apache.maven.scm.provider.git.gitexe.command;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
+
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -21,14 +25,11 @@ package org.apache.maven.scm.provider.git.gitexe.command;
 
 import org.apache.maven.scm.ScmException;
 import org.apache.maven.scm.log.ScmLogger;
+import org.apache.maven.scm.provider.git.gitexe.FileUtil;
 import org.codehaus.plexus.util.cli.CommandLineException;
 import org.codehaus.plexus.util.cli.CommandLineUtils;
 import org.codehaus.plexus.util.cli.Commandline;
 import org.codehaus.plexus.util.cli.StreamConsumer;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.List;
 
 /**
  * Command line construction utility.
@@ -54,23 +55,9 @@ public final class GitCommandLineUtils
         final File workingDirectory = cl.getWorkingDirectory();
         try
         {
-            final String canonicalWorkingDirectory = workingDirectory.getCanonicalPath();
             for ( File file : files )
             {
-                String relativeFile = file.getPath();
-
-                final String canonicalFile = file.getCanonicalPath();
-                if ( canonicalFile.startsWith( canonicalWorkingDirectory ) )
-                {
-                    // so we can omit the starting characters
-                    relativeFile = canonicalFile.substring( canonicalWorkingDirectory.length() );
-
-                    if ( relativeFile.startsWith( File.separator ) )
-                    {
-                        relativeFile = relativeFile.substring( File.separator.length() );
-                    }
-                }
-
+                String relativeFile = FileUtil.getRelativePath(workingDirectory, file); 
                 // no setFile() since this screws up the working directory!
                 cl.createArg().setValue( relativeFile );
             }
