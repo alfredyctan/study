@@ -10,7 +10,7 @@
 		<relativePath>../study-swagger</relativePath>
 	</parent>
 	<scm>
-  		<tag>HEAD</tag>
+  		<tag>study-swagger-1.0.0</tag>
 		<url>https://github.com/alfredyctan/study</url>
 		<connection>scm:git:https://github.com/alfredyctan/study.git</connection>
 		<developerConnection>scm:git:https://github.com/alfredyctan/study.git</developerConnection>
