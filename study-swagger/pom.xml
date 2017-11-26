@@ -29,7 +29,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.alf.maven.scm</groupId>
-			<artifactId>maven-scm-provider-gitexe-flat</artifactId>
+			<artifactId>maven-scm-provider-gitexe-flatten</artifactId>
 			<version>1.9.4</version>
 		</dependency>
 		<!-- <dependency> -->
@@ -114,7 +114,7 @@
 				<dependencies>
 					<dependency>
 						<groupId>org.alf.maven.scm</groupId>
-						<artifactId>maven-scm-provider-gitexe-flat</artifactId>
+						<artifactId>maven-scm-provider-gitexe-flatten</artifactId>
 						<version>1.9.4</version>
 					</dependency>
 					<dependency>
