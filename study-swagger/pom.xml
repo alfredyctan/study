@@ -107,6 +107,7 @@
 					<tagNameFormat>@{project.artifactId}-@{project.version}</tagNameFormat>
 					<autoVersionSubmodules>true</autoVersionSubmodules>
 					<pushChanges>false</pushChanges>
+					<preparationGoals>clean</preparationGoals>
 					<releaseProfiles>release-mode</releaseProfiles>
 					<username>${release.username}</username>
 					<password>${release.password}</password>
