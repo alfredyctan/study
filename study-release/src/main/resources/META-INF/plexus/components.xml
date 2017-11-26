@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component-set>
+  <components>
+    <component>
+      <role>org.apache.maven.scm.provider.ScmProvider</role>
+      <role-hint>git</role-hint>
+      <implementation>org.apache.maven.scm.provider.git.gitexe.GitExeScmProvider</implementation>
+      <description />
+      <isolated-realm>false</isolated-realm>
+    </component>
+  </components>
+</component-set>
