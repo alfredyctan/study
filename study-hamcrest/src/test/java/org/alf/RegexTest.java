@@ -1,5 +1,7 @@
-
 package org.alf;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -34,4 +36,14 @@ public class RegexTest {
 
 	}
 
+	@Test
+	public void testCaseInsensitiveWithWhitespaceAhead() {
+		//regex case insensitive with whitespace ahead
+		Pattern SELECT = Pattern.compile("^\\s*?(?i)select(?-i)");
+		
+		assertThat(SELECT.matcher(" select").find(), is(true));
+		assertThat(SELECT.matcher(" SeLecT").find(), is(true));
+		assertThat(SELECT.matcher(" SeLecTed").find(), is(true));
+		assertThat(SELECT.matcher(" TeLecT").find(), is(false));
+	}
 }
