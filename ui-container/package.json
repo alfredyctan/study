@@ -1,0 +1,23 @@
+{
+  "license": "SEE LICENSE IN license txt",
+  "name": "ui-container",
+  "version": "1.0.0",
+  "description": "",
+  "main": "",
+  "scripts": {
+    "clean": "rimraf target/classes/public",
+	"copy": "copyfiles -f src/main/javascript/index.html src/main/javascript/favicon.ico target/classes/public",
+	"dist": "npm run clean & npm run copy"
+  },
+  "repository": "",
+  "keywords": [
+  ],
+  "author": "afc",
+  "devDependencies": {
+    "copyfiles": "^0.2.1",
+    "react-hot-loader": "^4.0.0",
+    "rimraf": "^2.4.3"
+  },
+  "dependencies": {
+  }
+}
