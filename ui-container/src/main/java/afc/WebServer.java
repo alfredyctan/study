@@ -1,5 +1,6 @@
 package afc;
 
+import org.afc.util.ClasspathUtil;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -12,6 +13,7 @@ public class WebServer implements CommandLineRunner {
 	}
 
 	public static void main(String[] args) throws Exception {
+		ClasspathUtil.addSystemClasspath("target/javascript");
 		SpringApplication.run(WebServer.class, args);
 	}
 }
