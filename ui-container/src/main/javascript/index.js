@@ -12,7 +12,7 @@
 class Welcome extends React.Component {
 	render() {
 		let _this = this.props;
-		return <h1>Hello, {_this.name}</h1>;
+		return <div style={{width: '100%', height: '400px'}}><h1>Hello, {_this.name}</h1></div>;
 	}
 }
 
@@ -52,7 +52,6 @@ class Clock extends React.Component {
 
 	render() {
 		// let _this = this.props;
-		//return <h2>It is {this.state.date.toLocaleTimeString()} - {this.state.increment()}.</h2>;
 		return <h2>It is {this.state.date.toLocaleTimeString()} - {this.state.count}.</h2>;
 	}
 
@@ -74,50 +73,68 @@ class Clock extends React.Component {
 }
 
 class Toggle extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {isToggleOn: true};
+	constructor(props) {
+		super(props);
+		this.state = { isToggleOn: true };
 
-    // This binding is necessary to make `this` work in the callback
-    this.handleClick = this.handleClick.bind(this);
-  }
+		// This binding is necessary to make `this` work in the callback
+		this.handleClick = this.handleClick.bind(this);
+	}
 
-  handleClick() {
-    this.setState(prevState => ({
-      isToggleOn: !prevState.isToggleOn
-    }));
-  }
-
-  render() {
-    return (
-      <button onClick={this.handleClick}>
-        {this.state.isToggleOn ? 'ON' : 'OFF'}
-      </button>
-    );
-  }
-}
-
-class Everything extends React.Component {
+	handleClick() {
+		this.setState(prevState => ({
+			isToggleOn: !prevState.isToggleOn
+		}));
+	}
 
 	render() {
-		let _this = this.props;
 		return (
-			<span>
-				<Welcome name="Sara" />
-				<Clock interval="1000" />
-				<Clock interval="2000" />
-				<Clock interval="3000" />
-				<Toggle/>
-			</span>
+			<button onClick={this.handleClick}>
+				{this.state.isToggleOn ? 'ON' : 'OFF'}
+			</button>
 		);
 	}
 }
 
+class Panel extends React.Component {
+
+	componentDidMount() {
+	}
+
+	render() {
+		let _this = this.props;
+		return (
+			<div style={{width: '100%', height: '400px'}}>
+				<iframe style={{width: '100%', height: '400px'}} src={_this.url}></iframe>
+			</div>
+		);
+	}
+}
+
+class PanelContainer extends React.Component {
+
+	render() {
+		let _this = this.props;
+		return (
+			<div>
+				<Welcome id="poc" name="POC" />
+				<Panel id="oms" name="OMS" url="http://fiximate.fixtrading.org" />
+				<Panel id="lcm" name="LCM" url="http://en.wikipedia.org" />
+			</div>
+		);
+	}
+}
+
+ReactDOM.render(
+	<PanelContainer />,
+	document.getElementById('main')
+);
+
 setInterval(
 	function () {
 		ReactDOM.render(
-			<Everything />,
-			document.getElementById('main')
+			<span><Toggle /><Clock interval="1000" /></span>,
+			document.getElementById('status')
 		);
 	},
 	1000
@@ -126,8 +143,7 @@ setInterval(
 class Button extends React.Component {
 
 	onButtonClick(e) {
-		// console.log('The button1 was clicked. ' + Object.keys(e));
-		// console.log('The button1 was clicked. ');
+		console.log('The poc button was clicked. ' + e);
 	}
 
 
@@ -139,8 +155,6 @@ class Button extends React.Component {
 
 
 class Button2 extends React.Component {
-
-
 
 	render() {
 		let _this = this.props;
