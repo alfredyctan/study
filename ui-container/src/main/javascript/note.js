@@ -160,7 +160,7 @@ function arrays() {
 	a.unshift('rabbit', 'turtle'); 		
 }
 
-function testPrototypeObject() {
+function testClassFromPrototypeObject() {
 
 	function Person(first, last, age) {
 		this.first = first;
@@ -190,7 +190,7 @@ function testPrototypeObject() {
 	console.log(withoutNew.fullName()); // undefine
 }
 
-function testJsonObject() {
+function testClassFromJsonObject() {
 
 	function Person(first, last, age) {
 		return {
